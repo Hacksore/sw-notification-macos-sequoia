@@ -28,9 +28,11 @@
     function sendToServiceWorker() {
       const n = new Notification('Hello from the main thread!');
 
-      if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage('Hello from the main thread!');
-      }
+      navigator.serviceWorker.controller.postMessage({
+        title: n.title,
+        body: n.body
+      });
+
     }
   </script>
 </head>

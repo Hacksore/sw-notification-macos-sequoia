@@ -1,6 +1,10 @@
 console.log("Service worker loaded!", Date.now());
 
-// handle notfication click event
+// handle message 
+self.addEventListener("message", function (event) {
+  console.log("Message event", event.data);
+})
+
 // BUG: this should fire right?
 self.addEventListener("notificationclick", function (event) {
   console.log("Notification click event");
