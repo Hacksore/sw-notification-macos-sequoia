@@ -28,9 +28,13 @@
       });
     };
 
+    navigator.serviceWorker.ready.then(function (registration) {
+      console.log('Service Worker is active:', registration.active.state);
+    });
+
     function sendToServiceWorker() {
       navigator.serviceWorker.controller.postMessage({
-        title: 'Hello from the main page!',
+        title: 'This should open google.com on click',
       });
     }
   </script>
@@ -38,9 +42,13 @@
 
 <body>
   <h1>Repro</h1>
-  <p>Enable perms && send to service worker</p>
-  <button id="permButton" onclick="requestPermission()">Request Notification Permission</button>
-  <button id="swButton" disabled onclick="sendToServiceWorker()">send to service woker</button>
+  <div>
+    <p>Request Notification Perms && Send to service worker</p>
+    <button id="permButton" onclick="requestPermission()">Request Notification Perms</button>
+    <button id="swButton" disabled onclick="sendToServiceWorker()">Send to service woker</button>
+
+    <p>Clicking the notification that pops op should open google.com</p>
+  </div>
 </body>
 
 </html>
