@@ -1,6 +1,11 @@
-console.log("Service worker loaded!", Date.now());
+self.addEventListener("installed", function(event) {
+  console.log("Service worker install!", Date.now());
+})
 
-// handle message 
+self.addEventListener("activate", function(event) {
+  console.log("Service worker activate!", Date.now());
+})
+
 self.addEventListener("message", function(event) {
   console.log("Message from main page:", event.data);
   self.registration.showNotification("Hello from the service worker!")

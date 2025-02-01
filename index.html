@@ -1,13 +1,15 @@
 <html>
 
 <head>
-  <title>My Web Page</title>
-  <!-- regionster sw.js as a service worker  -->
+  <title>Repro SW Bug</title>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
+        const swButton = document.getElementById('swButton');
+        const permButton = document.getElementById('permButton');
         navigator.serviceWorker.register('sw.js').then(function (registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
+          console.log('Service Worker registered:', registration.active.state);
+          swButton.removeAttribute('disabled');
         }, function (err) {
           console.log('Service Worker registration failed:', err);
         });
@@ -19,6 +21,7 @@
       Notification.requestPermission().then(function (permission) {
         if (permission === 'granted') {
           console.log('Notification permission granted.');
+          permButton.setAttribute('disabled', true);
         } else {
           console.log('Notification permission denied.');
         }
@@ -34,10 +37,10 @@
 </head>
 
 <body>
-  <h1>Welcome to My Web Page</h1>
+  <h1>Repro</h1>
   <p>Enable perms && send to service worker</p>
-  <button onclick="requestPermission()">Request Notification Permission</button>
-  <button onclick="sendToServiceWorker()">send to service woker</button>
+  <button id="permButton" onclick="requestPermission()">Request Notification Permission</button>
+  <button id="swButton" disabled onclick="sendToServiceWorker()">send to service woker</button>
 </body>
 
 </html>
