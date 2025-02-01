@@ -1,12 +1,12 @@
 console.log("Service worker loaded!", Date.now());
 
 // handle message 
-self.addEventListener("message", function (event) {
-  console.log("Message event", event.data);
+self.addEventListener("message", function(event) {
+  console.log("Message from main page:", event.data);
+  self.registration.showNotification("Hello from the service worker!")
 })
 
-// BUG: this should fire right?
-self.addEventListener("notificationclick", function (event) {
+self.addEventListener("notificationclick", function(event) {
   console.log("Notification click event");
   event.notification.close();
   event.waitUntil(
